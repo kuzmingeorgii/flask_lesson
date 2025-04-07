@@ -89,5 +89,11 @@ def validate_access(astronaut_id, astronaut_password, captain_id, captain_passwo
     return True
 
 
+@app.route('/distribution')
+def distribute():
+    astronauts = ['Ридли Скотт', 'Энди Уир', 'Марк Уотни', 'Венката Капур', 'Тедди Сандерс', 'Шон Бин']
+    return render_template('distribution.html', astronauts=astronauts)
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8008)

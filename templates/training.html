@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    <img src="{{ url_for('static', filename='img/' + image) }}" alt="{{ title }}" width="600">
+{% endblock %}

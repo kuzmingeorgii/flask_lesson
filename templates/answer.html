@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>Анкета для участия в миссии на Марс</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.surname.label }}<br>{{ form.surname(size=40) }}</p>
+        <p>{{ form.name.label }}<br>{{ form.name(size=40) }}</p>
+        <p>{{ form.education.label }}<br>{{ form.education(size=40) }}</p>
+        <p>{{ form.profession.label }}<br>{{ form.profession(size=40) }}</p>
+        <p>{{ form.sex.label }}<br>{{ form.sex() }}</p>
+        <p>{{ form.motivation.label }}<br>{{ form.motivation(rows=5, cols=40) }}</p>
+        <p>{{ form.ready() }} {{ form.ready.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>

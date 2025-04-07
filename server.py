@@ -1,6 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, redirect, url_for, request
+from flask_wtf import FlaskForm
+from wtforms import StringField, RadioField, TextAreaField, BooleanField, SubmitField
+from wtforms.validators import DataRequired
+
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
 @app.route('/')
@@ -33,6 +38,34 @@ def list_prof(list_type):
         list_type = None
 
     return render_template('list_prof.html', list_type=list_type, professions=professions)
+
+
+class MarsForm(FlaskForm):
+    surname = StringField('Фамилия', validators=[DataRequired()])
+    name = StringField('Имя', validators=[DataRequired()])
+    education = StringField('Образование', validators=[DataRequired()])
+    profession = StringField('Профессия', validators=[DataRequired()])
+    sex = RadioField('Пол', choices=[('male', 'Мужской'), ('female', 'Женский')], validators=[DataRequired()])
+    motivation = TextAreaField('Почему вы хотите участвовать в миссии?', validators=[DataRequired()])
+    ready = BooleanField('Готовы остаться на Марсе?')
+    submit = SubmitField('Отправить')
+
+
+@app.route('/answer', methods=['GET', 'POST'])
+def answer():
+    form = MarsForm()
+    if form.validate_on_submit():
+        user_data = {
+            'surname': form.surname.data,
+            'name': form.name.data,
+            'education': form.education.data,
+            'profession': form.profession.data,
+            'sex': form.sex.data,
+            'motivation': form.motivation.data,
+            'ready': form.ready.data,
+        }
+        return render_template('auto_answer.html', title='Ответ', user_data=user_data)
+    return render_template('answer.html', title='Анкета', form=form)
 
 
 if __name__ == '__main__':

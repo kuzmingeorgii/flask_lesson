@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Ваши данные</h2>
+    <p><b>Фамилия:</b> {{ user_data.surname }}</p>
+    <p><b>Имя:</b> {{ user_data.name }}</p>
+    <p><b>Образование:</b> {{ user_data.education }}</p>
+    <p><b>Профессия:</b> {{ user_data.profession }}</p>
+    <p><b>Пол:</b> {{ user_data.sex }}</p>
+    <p><b>Мотивация:</b> {{ user_data.motivation }}</p>
+    <p><b>Готовы остаться на Марсе?</b> {{ 'Да' if user_data.ready else 'Нет' }}</p>
+{% endblock %}

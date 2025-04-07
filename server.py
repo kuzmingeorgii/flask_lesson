@@ -68,5 +68,26 @@ def answer():
     return render_template('answer.html', title='Анкета', form=form)
 
 
+@app.route("/emergency_access", methods=["GET", "POST"])
+def emergency_access():
+    image = "mars-logo.png"
+    if request.method == "POST":
+        astronaut_id = request.form.get("astronaut_id")
+        astronaut_password = request.form.get("astronaut_password")
+        captain_id = request.form.get("captain_id")
+        captain_password = request.form.get("captain_password")
+
+        # Логика проверки данных
+        if validate_access(astronaut_id, astronaut_password, captain_id, captain_password):
+            return "Доступ разрешен!"
+        else:
+            return "Ошибка доступа! Проверьте данные.", 403
+    return render_template("emergency_access.html", title="Аварийный доступ", image=image)
+
+
+def validate_access(astronaut_id, astronaut_password, captain_id, captain_password):
+    return True
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8008)
